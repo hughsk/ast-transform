@@ -48,6 +48,8 @@ browserify('./index.js')
   .pipe(fs.createWriteStream(__filename + '/bundle.js'))
 ```
 
+`opts` can provide `opts.parser` and other options for [recast.parse](https://github.com/benjamn/recast).
+
 ## License ##
 
 MIT. See [LICENSE.md](http://github.com/hughsk/ast-transform/blob/master/LICENSE.md) for details.
