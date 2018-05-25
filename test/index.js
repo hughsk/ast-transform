@@ -7,7 +7,6 @@ var fs = require('fs')
 var ast = require('../')
 var assert = require('assert')
 var concat = require('concat-stream')
-var recast = require('recast')
 
 var fixture = fs.readFileSync(path.join(__dirname, 'fix.js'), {encoding: 'utf8'})
 
