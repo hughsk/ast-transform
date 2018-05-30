@@ -1,6 +1,7 @@
-var codegen = require('escodegen')
-var esprima = require('esprima')
-var through = require('through')
+'use strict'
+
+var recast = require('recast')
+var through = require('through2')
 
 module.exports = astTransform
 
@@ -16,27 +17,27 @@ function astTransform(transform, opts) {
 
     return stream
 
-    function write(data) { buffer.push(data) }
-    function flush() {
-      buffer = buffer.join('')
+    function write(data, enc, cb) { buffer.push(data); cb() }
 
+    function flush(cb) {
+      buffer = buffer.join('')
       try {
-        var ast = esprima.parse(buffer, opts)
+        var ast = recast.parse(buffer, opts)
       } catch(e) {
         return stream.emit('error', e)
       }
-
+      var s = this
       tr(ast, function(err, updated) {
         if (err) return stream.emit('error', err)
 
         try {
-          var code = codegen.generate(updated || ast)
+          var code = recast.print(updated || ast)
         } catch(e) {
           return stream.emit('error', e)
         }
 
-        stream.queue(code.code || code)
-        stream.queue(null)
+        s.push(code.code || code)
+        cb()
       })
     }
   }

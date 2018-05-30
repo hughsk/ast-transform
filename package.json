@@ -4,9 +4,11 @@
   "version": "0.0.0",
   "main": "index.js",
   "dependencies": {
-    "through": "~2.3.4",
-    "esprima": "~1.0.4",
-    "escodegen": "~1.2.0"
+    "recast": "^0.14.7",
+    "through2": "^2.0.3"
+  },
+  "scripts": {
+    "test": "node test"
   },
   "author": "Hugh Kennedy <hughskennedy@gmail.com> (http://hughsk.io/)",
   "license": "MIT",
@@ -23,5 +25,10 @@
     "transform",
     "browserify",
     "stream"
-  ]
+  ],
+  "devDependencies": {
+    "browserify": "^16.2.2",
+    "concat-stream": "^1.6.2",
+    "replace-method": "0.0.0"
+  }
 }
